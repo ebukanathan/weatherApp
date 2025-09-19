@@ -23,7 +23,7 @@ function MainBody() {
     { time: "3pm", temp: "2deg" },
   ];
   return (
-    <div className="mt-20 w-full grid grid-cols-3">
+    <div className="mt-20 w-full   h-[693px] overflow-hidden bg-red-300 grid grid-cols-3">
       <div className=" col-span-2 rounded-3xl flex flex-col">
         <div className="bg-blue-400 text-white text-4xl h-[30vh] font-bold px-6 flex justify-between  items-center rounded-lg ">
           <div className="flex flex-col">
@@ -75,13 +75,24 @@ function MainBody() {
           </div>
         </div>
       </div>
-      <div className="h-[450px] bg-yellow-300 rounded-3xl ml-6">
-        {hourly.map((hour) => (
-          <div className="flex justify-between px-3 items-center gap-3">
-            <div>{hour.time}</div>
-            <div>{hour.temp}</div>
-          </div>
-        ))}
+      <div className="h-[450px] bg-yellow-300 rounded-3xl ml-6  overflow-visible">
+        <div className="flex  mt-5 w-[90%] mx-auto justify-between ">
+          <div className="text-wrap ">Hourly Forecast</div>
+          <select className="rounded-lg w-[90px] px-1  bg-gray-400 border border-gray-400">
+            <option value="">Monday</option>
+            <option value="">Tuesday</option>
+            <option value="">Wednesday</option>
+            <option value="">Thursday</option>
+          </select>
+        </div>
+        <div className="mt-5">
+          {hourly.map((hour) => (
+            <div className=" w-[90%] h-[60px] mx-auto rounded-lg flex justify-between p-2 items-center gap-3 mt-2 border border-gray-500 bg-gray-400">
+              <div>{hour.time}</div>
+              <div>{hour.temp}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
