@@ -23,7 +23,7 @@ function MainBody() {
     { time: "3pm", temp: "2deg" },
   ];
   return (
-    <div className="mt-20 w-full   h-[693px] overflow-hidden bg-red-300 grid grid-cols-3">
+    <div className="mt-20 w-full  md:h-[693px] overflow-hidden bg-red-300 grid  grid-cols-1 gap-4 md:grid-cols-3">
       <div className=" col-span-2 rounded-3xl flex flex-col">
         <div className="bg-blue-400 text-white text-4xl h-[30vh] font-bold px-6 flex justify-between  items-center rounded-lg ">
           <div className="flex flex-col">
@@ -75,7 +75,7 @@ function MainBody() {
           </div>
         </div>
       </div>
-      <div className="h-[450px] bg-yellow-300 rounded-3xl ml-6  overflow-visible">
+      <div className="h-[450px] mt-6 bg-yellow-300 rounded-3xl ml-6  overflow-visible">
         <div className="flex  mt-5 w-[90%] mx-auto justify-between ">
           <div className="text-wrap ">Hourly Forecast</div>
           <select className="rounded-lg w-[90px] px-1  bg-gray-400 border border-gray-400">
