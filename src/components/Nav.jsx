@@ -6,7 +6,11 @@ function Nav() {
       <div className="logo w-[100px] h-[50px]">
         <img src="logo.svg " alt="" className="w-full h-full" />
       </div>
-      <div className="cursor-pointer p-2">unit</div>
+      <select className="cursor-pointer p-2">
+        <option value="">Unit</option>
+        <option value="celsius">Celsuius</option>
+        <option value="farenheit">Farenheit</option>
+      </select>
     </div>
   );
 }
