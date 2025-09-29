@@ -33,12 +33,12 @@ function App() {
     latitude: location.lat,
     hourly: "temperature_2m",
   };
-  const url = "https://api.open-meteo.com/v1/forecast";
+  // const url = "https://api.open-meteo.com/v1/forecast";
 
-  const responses = fetchWeatherApi(url, params);
-  const response = responses[0];
+  // const responses = fetchWeatherApi(url, params);
+  // const response = responses[0];
 
-  console.log(response);
+  // console.log(response);
 
   return (
     <div className="w-2/3 mx-auto ">
