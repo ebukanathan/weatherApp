@@ -37,8 +37,6 @@ function Search() {
     }
   };
 
-  console.log(search);
-
   return (
     <div className="relative">
       <form className="mt-6 w-1/2 mx-auto flex gap-2" onSubmit={HandleSubmit}>
