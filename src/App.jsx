@@ -5,14 +5,30 @@ import MainBody from "./components/MainBody";
 import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
 
-const getSearchLocation = async (location) => {
+export const getSearchLocation = async (location) => {
   try {
     const response = await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=10&language=en&format=json`
+      `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=1&language=en&format=json`
     );
 
     const data = await response.json();
     return data.results;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getWeather = async (lat, lon) => {
+  const params = {
+    latitude: lat,
+    longitude: lon,
+    hourly: "temperature_2m",
+  };
+  const url = "https://api.open-meteo.com/v1/forecast";
+  try {
+    const response = await fetchWeatherApi(url, params);
+    // const data = await response.json();
+    console.log(response[0]);
   } catch (err) {
     console.log(err);
   }
@@ -54,12 +70,12 @@ function App() {
 
   // console.log(response);
 
-  const { data } = useQuery({
-    queryKey: ["location"],
-    queryFn: getSearchLocation,
-  });
+  // const { data } = useQuery({
+  //   queryKey: ["location"],
+  //   queryFn: getSearchLocation,
+  // });
 
-  console.log("this is data" + data);
+  // console.log("this is data" + data);
 
   return (
     <div className="w-2/3 mx-auto ">
