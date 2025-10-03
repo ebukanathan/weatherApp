@@ -5,59 +5,75 @@ import MainBody from "./components/MainBody";
 import { fetchWeatherApi } from "openmeteo";
 import { useQuery } from "@tanstack/react-query";
 
-const getWeather = async (lat, lon) => {
-  const params = {
-    latitude: lat,
-    longitude: lon,
-    hourly: "temperature_2m",
-  };
-  const url = "https://api.open-meteo.com/v1/forecast";
-  try {
-    const response = await fetchWeatherApi(url, params);
-    // const data = await response.json();
-    console.log(response[0]);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 function App() {
-  // const [location, setLocation] = useState({ lat: null, lon: null });
-  const [searchCity, setSearchCity] = useState("abuja");
+  const [location, setLocation] = useState({ lon: null, lat: null });
+  // const [searchCity, setSearchCity] = useState("abuja");
+  const [inputCity, setInputCity] = useState("accra");
   const [error, setError] = useState("");
 
-  const getSearchLocation = async (location) => {
+  const getSearchLocation = async () => {
     try {
       const response = await fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=1&language=en&format=json`
+        `https://geocoding-api.open-meteo.com/v1/search?name=${inputCity}&count=1&language=en&format=json`
       );
 
       const data = await response.json();
-      return data.results;
+      console.log(data.results);
+      setLocation({ lon: data.results.longitude, lat: data.results.longitude });
     } catch (err) {
       console.log(err);
     }
   };
 
-  // const getLocation = () => {
-  //   if (!navigator.geolocation) {
-  //     setError("not supported");
-  //     return;
-  //   }
+  getSearchLocation();
 
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       setLocation({
-  //         lat: position.coords.latitude,
-  //         lon: position.coords.longitude,
-  //       });
-  //       setError(null);
-  //     },
-  //     (error) => {
-  //       setError("error getting location" + error.message);
-  //     }
-  //   );
-  // };
+  const getCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      setError("not supported");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        });
+        setError(null);
+      },
+      (error) => {
+        setError("error getting location" + error.message);
+      }
+    );
+  };
+
+  // getCurrentLocation();
+
+  console.log(location);
+
+  const getWeather = async () => {
+    getCurrentLocation();
+    // const params = {
+    //   latitude: 6.535233,
+    //   longitude: 3.3489671,
+    //   hourly: "temperature_2m",
+    // };
+    // const url = "https://api.open-meteo.com/v1/forecast";
+    try {
+      // const response = await fetchWeatherApi(url, params);
+      const response = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${location.lat}&longitude=${location.lon}&current_weather=true`
+      );
+      // const data = await response.json();
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getWeather();
+  }, []);
 
   // const params = {
   //   longitude: location.lon,
@@ -78,7 +94,7 @@ function App() {
 
   // console.log(data);
 
-  getSearchLocation("abuja");
+  // getSearchLocation("abuja");
   return (
     <div className="w-2/3 mx-auto ">
       <Nav />
